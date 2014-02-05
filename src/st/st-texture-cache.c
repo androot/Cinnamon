@@ -300,7 +300,7 @@ impl_load_pixbuf_gicon (GIcon        *icon,
                             size, size,
                             &scaled_width, &scaled_height))
     {
-      GdkPixbuf *scaled = gdk_pixbuf_scale_simple (pixbuf, width, height, GDK_INTERP_BILINEAR);
+      GdkPixbuf *scaled = gdk_pixbuf_scale_simple (pixbuf, scaled_width, scaled_height, GDK_INTERP_BILINEAR);
       g_object_unref (pixbuf);
       pixbuf = scaled;
     }
@@ -360,10 +360,20 @@ on_image_size_prepared (GdkPixbufLoader *pixbuf_loader,
   int available_height = available_dimensions->height;
   int scaled_width;
   int scaled_height;
+  int final_width = width;
+  int final_height = height;
 
   if (compute_pixbuf_scale (width, height, available_width, available_height,
-                            &scaled_width, &scaled_height))
-    gdk_pixbuf_loader_set_size (pixbuf_loader, scaled_width, scaled_height);
+                            &scaled_width, &scaled_height)) {
+    final_width = scaled_width;
+    final_height = scaled_height;
+  }
+
+  double scale = clutter_backend_get_resolution (clutter_get_default_backend ()) / 96.0;
+
+  final_width = (int)((double) final_width * scale);
+  final_height = (int)((double) final_height * scale);  
+  gdk_pixbuf_loader_set_size (pixbuf_loader, final_width, final_height);
 }
 
 static GdkPixbuf *
