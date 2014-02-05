@@ -628,20 +628,20 @@ Panel.prototype = {
                                                   reactive: true });
         this.actor._delegate = this;
 
-        if (global.settings.get_boolean('panel-resizable')) {
-            if (bottomPosition) {
-                this.actor.set_height(global.settings.get_int('panel-bottom-height'));
-            }
-            else {
-                this.actor.set_height(global.settings.get_int('panel-top-height'));
-            }
-        }
-        if (this.bottomPosition) {
-            global.settings.connect("changed::panel-bottom-height", Lang.bind(this, this._processPanelSize));
-        }
-        else {
-            global.settings.connect("changed::panel-top-height", Lang.bind(this, this._processPanelSize));
-        }
+        // if (global.settings.get_boolean('panel-resizable')) {
+        //     if (bottomPosition) {
+        //         this.actor.set_height(global.settings.get_int('panel-bottom-height'));
+        //     }
+        //     else {
+        //         this.actor.set_height(global.settings.get_int('panel-top-height'));
+        //     }
+        // }
+        // if (this.bottomPosition) {
+        //     global.settings.connect("changed::panel-bottom-height", Lang.bind(this, this._processPanelSize));
+        // }
+        // else {
+        //     global.settings.connect("changed::panel-top-height", Lang.bind(this, this._processPanelSize));
+        // }
 
         this._menus = new PopupMenu.PopupMenuManager(this);
 
@@ -793,6 +793,7 @@ Panel.prototype = {
     },
 
     _processPanelSize: function() {
+        return;
         let panelHeight;
         let panelResizable = global.settings.get_boolean("panel-resizable");
         if (panelResizable) {

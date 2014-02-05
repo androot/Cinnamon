@@ -939,16 +939,17 @@ get_length_from_term (StThemeNode *node,
       return VALUE_NOT_FOUND;
     }
 
+  double resolution;
+
   switch (type)
     {
     case ABSOLUTE:
-      *length = num->val * multiplier;
+      resolution = clutter_backend_get_resolution (clutter_get_default_backend ());
+      *length = num->val * multiplier * (resolution / 96.);
       break;
     case POINTS:
-      {
-        double resolution = clutter_backend_get_resolution (clutter_get_default_backend ());
-        *length = num->val * multiplier * (resolution / 72.);
-      }
+      resolution = clutter_backend_get_resolution (clutter_get_default_backend ());
+      *length = num->val * multiplier * (resolution / 72.);
       break;
     case FONT_RELATIVE:
       {
