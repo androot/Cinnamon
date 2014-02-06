@@ -371,7 +371,7 @@ ApplicationButton.prototype = {
         let favorites = AppFavorites.getAppFavorites().getFavorites();
         let nbFavorites = favorites.length;
         let monitorHeight = Main.layoutManager.primaryMonitor.height;
-        let real_size = (0.7 * monitorHeight / global.ui_scale) / nbFavorites;
+        let real_size = (0.7 * monitorHeight) / nbFavorites;
         let icon_size = 0.6 * real_size;
         if (icon_size > MAX_FAV_ICON_SIZE * global.ui_scale)
             icon_size = MAX_FAV_ICON_SIZE * global.ui_scale;
@@ -579,7 +579,7 @@ FavoritesButton.prototype = {
         let icon_size = 0.6 * real_size;
         if (icon_size > MAX_FAV_ICON_SIZE * global.ui_scale)
             icon_size = MAX_FAV_ICON_SIZE * global.ui_scale;
-        this.actor.style = "padding-top: "+(icon_size / 3)+"px;padding-bottom: "+(icon_size / 3)+"px; margin:auto;"
+        this.actor.style = "padding-top: "+(icon_size / 3 / global.ui_scale)+"px;padding-bottom: "+(icon_size / 3 / global.ui_scale)+"px; margin:auto;"
 
         this.actor.add_style_class_name('menu-favorites-button');    
         let icon = app.create_icon_texture(icon_size);
@@ -618,7 +618,7 @@ SystemButton.prototype = {
         let icon_size = 0.6 * real_size;
         if (icon_size > MAX_FAV_ICON_SIZE * global.ui_scale)
             icon_size = MAX_FAV_ICON_SIZE * global.ui_scale;
-        this.actor.style = "padding-top: "+(icon_size / 3)+"px;padding-bottom: "+(icon_size / 3)+"px; margin:auto;"
+        this.actor.style = "padding-top: "+(icon_size / 3 / global.ui_scale)+"px;padding-bottom: "+(icon_size / 3 / global.ui_scale)+"px; margin:auto;"
         let iconObj = new St.Icon({icon_name: icon, icon_size: icon_size, icon_type: St.IconType.FULLCOLOR});
         this.actor.set_child(iconObj);
         iconObj.realize()
@@ -957,7 +957,7 @@ MyApplet.prototype = {
             let applicationsBoxHeight = this.applicationsBox.get_allocation_box().y2-this.applicationsBox.get_allocation_box().y1;
             let scrollBoxHeight = (this.leftBox.get_allocation_box().y2-this.leftBox.get_allocation_box().y1) -
                                     (this.searchBox.get_allocation_box().y2-this.searchBox.get_allocation_box().y1);
-            this.applicationsScrollBox.style = "height: "+scrollBoxHeight+"px;";
+            this.applicationsScrollBox.style = "height: "+scrollBoxHeight / global.ui_scale +"px;";
 
             this.initButtonLoad = 30;
             let n = Math.min(this._applicationsButtons.length,
