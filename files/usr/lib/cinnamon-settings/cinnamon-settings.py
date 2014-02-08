@@ -218,11 +218,11 @@ class MainWindow:
             iconFile = "/usr/lib/cinnamon-settings/data/icons/%s" % sp.icon
             if os.path.exists(iconFile):
                 size = 48 * self.window.get_scale_factor()
-                img = GdkPixbuf.Pixbuf.new_from_file_at_size( iconFile, size, size)
-                surface = Gdk.cairo_surface_create_from_pixbuf (img, self.window.get_scale_factor(), self.window.get_window())
+                pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size( iconFile, size, size)
+                surface = Gdk.cairo_surface_create_from_pixbuf (pixbuf, self.window.get_scale_factor(), self.window.get_window())
                 wrapper = SurfaceWrapper(surface)
             else:
-                surface = None
+                wrapper = None
 
             sidePagesIters[sp_id] = self.store[sp_cat].append([sp.name, wrapper, sp, sp_cat])
 
@@ -355,7 +355,8 @@ class MainWindow:
 
     def pixbuf_data_func(self, column, cell, model, iter, data=None):
         wrapper = model.get_value(iter, 1)
-        cell.set_property('surface', wrapper.surface)
+        if wrapper:
+            cell.set_property('surface', wrapper.surface)
 
     def prepCategory(self, category):
         self.storeFilter[category["id"]].refilter()
@@ -367,10 +368,12 @@ class MainWindow:
         box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 4)
         iconFile = "/usr/lib/cinnamon-settings/data/icons/%s" % category["icon"]
         if os.path.exists(iconFile):
-            img = GdkPixbuf.Pixbuf.new_from_file_at_size( iconFile, 30, 30)
-            box.pack_start(Gtk.Image.new_from_pixbuf(img), False, False, 4)
-        else:
-            img = None
+            scale = 30 * self.window.get_scale_factor()
+            pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size( iconFile, scale, scale)
+            surface = Gdk.cairo_surface_create_from_pixbuf (pixbuf, self.window.get_scale_factor(), self.window.get_window())
+            img = Gtk.Image()
+            img.set_property("surface", surface)
+            box.pack_start(img, False, False, 4)
 
         widget = Gtk.Label()
         widget.set_use_markup(True)
