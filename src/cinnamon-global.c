@@ -239,7 +239,7 @@ scale_notify_cb (GSettings *settings, gchar *key, gpointer user_data)
 {
     CinnamonGlobal *global = CINNAMON_GLOBAL (user_data);
 
-    guint new_scale = g_settings_get_uint (global->interface_settings, "scaling-factor");
+    guint new_scale = g_settings_get_uint (global->interface_settings, "scaling-factor-status");
     if (new_scale != global->ui_scale) {
         global->ui_scale = new_scale;
         g_signal_emit_by_name (global, "scale-changed");
