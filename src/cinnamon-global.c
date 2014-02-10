@@ -276,7 +276,7 @@ cinnamon_global_init (CinnamonGlobal *global)
 
   global->settings = g_settings_new ("org.cinnamon");
   global->interface_settings = g_settings_new ("org.cinnamon.desktop.interface");
-  g_signal_connect (global->interface_settings, "changed::scaling-factor", G_CALLBACK (scale_notify_cb), global);
+  g_signal_connect (global->interface_settings, "changed::scaling-factor-status", G_CALLBACK (scale_notify_cb), global);
   global->ui_scale = g_settings_get_uint (global->interface_settings, "scaling-factor");
   g_printerr ("scale is %d\n", global->ui_scale);
   
