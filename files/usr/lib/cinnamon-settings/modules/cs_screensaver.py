@@ -7,7 +7,7 @@ class Module:
     def __init__(self, content_box):
         keywords = _("screensaver, brightness, lock, password, away, message")
         advanced = False
-        sidePage = SidePage(_("Screensaver & Lock Settings"), "screensaver.svg", keywords, advanced, content_box)
+        sidePage = SidePage(_("Screensaver & Lock Settings"), "cs-screensaver", keywords, advanced, content_box)
         self.sidePage = sidePage
         self.name = "screensaver"
         self.category = "prefs"
