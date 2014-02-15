@@ -89,11 +89,11 @@ class ExtensionSidePage (SidePage):
             cr.set_property('wrap-mode', Pango.WrapMode.WORD_CHAR)
             cr.set_property('wrap-width', 200)
 
-        actionColumn = Gtk.TreeViewColumn("Read only", Gtk.CellRendererPixbuf(), pixbuf=10)
+        actionColumn = Gtk.TreeViewColumn("Read only", Gtk.CellRendererPixbuf(), icon_name=10)
         actionColumn.set_expand(True)
 
         cr = Gtk.CellRendererPixbuf()
-        isActiveColumn = Gtk.TreeViewColumn("Active", cr, pixbuf=11)
+        isActiveColumn = Gtk.TreeViewColumn("Active", cr, icon_name=11)
         isActiveColumn.set_expand(True)
         isActiveColumn.set_cell_data_func(cr, self._is_active_data_func)
         
@@ -103,7 +103,7 @@ class ExtensionSidePage (SidePage):
         self.treeview.append_column(isActiveColumn)
         self.treeview.set_headers_visible(False)
         
-        self.model = Gtk.TreeStore(str, str, int, int, GdkPixbuf.Pixbuf, str, int, bool, str, long, GdkPixbuf.Pixbuf, GdkPixbuf.Pixbuf, str, int)
+        self.model = Gtk.TreeStore(str, str, int, int, GdkPixbuf.Pixbuf, str, int, bool, str, long, str, str, str, int)
         #                          uuid, desc, enabled, max-instances, icon, name, read-only, hide-config-button, ext-setting-app, edit-date, read-only icon, active icon, schema file name (for uninstall), settings type
 
         self.modelfilter = self.model.filter_new()
@@ -336,10 +336,7 @@ class ExtensionSidePage (SidePage):
         self.select_updated = Gtk.Button("  Select updated")
 
         b, w, h = Gtk.icon_size_lookup(Gtk.IconSize.BUTTON)
-        pb = GdkPixbuf.Pixbuf.new_from_file_at_size("/usr/lib/cinnamon-settings/data/update.svg", w, h)
-        img = Gtk.Image.new_from_pixbuf(pb)
-        img.set_padding(5, -1)
-        self.select_updated.set_image(img)
+
         reload_button = Gtk.Button(_("Refresh list"))
         buttonbox.pack_start(self.install_button, False, False, 2)
         buttonbox.pack_start(self.select_updated, False, False, 2)
@@ -664,18 +661,18 @@ class ExtensionSidePage (SidePage):
 
         if installed:
             if can_update:
-                img = GdkPixbuf.Pixbuf.new_from_file_at_size("/usr/lib/cinnamon-settings/data/update.svg", ROW_SIZE, ROW_SIZE)
+                name = "cs-xlet-update"
                 self.update_list[uuid] = True
             else:
-                img = GdkPixbuf.Pixbuf.new_from_file_at_size("/usr/lib/cinnamon-settings/data/installed.svg", ROW_SIZE, ROW_SIZE)
+                name = "cs-xlet-installed"
                 if uuid in self.update_list.keys():
                     del self.update_list[uuid]
         else:
-            img = GdkPixbuf.Pixbuf.new_from_file_at_size("/usr/lib/cinnamon-settings/data/inactive.png", ROW_SIZE, ROW_SIZE)
+            name = ""
             if uuid in self.update_list.keys():
                 del self.update_list[uuid]
 
-        cell.set_property("pixbuf", img)
+        cell.set_property("icon-name", name)
         self.refresh_update_button()
 
     def gm_toggled(self, renderer, path, treeview):

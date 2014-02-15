@@ -4,7 +4,7 @@ import sys
 sys.path.append('/usr/lib/cinnamon-settings/bin')
 from SettingsWidgets import *
 import os
-from gi.repository import Gio, Gtk, GObject, Gdk, Pango
+from gi.repository import Gio, Gtk, GObject, Gdk, Pango, GLib
 import dbus
 import imtools
 import gettext
@@ -161,7 +161,7 @@ class ThreadedIconView(Gtk.IconView):
         self._loading_lock.release()
         
         if start_loading:
-            GObject.timeout_add(100, self._check_loading_progress)
+            GLib.timeout_add(100, self._check_loading_progress)
             thread.start_new_thread(self._do_load, ())
     
     def _check_loading_progress(self):
