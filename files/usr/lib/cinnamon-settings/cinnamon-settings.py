@@ -353,7 +353,7 @@ class MainWindow:
         img = Gtk.Image.new_from_icon_name(category["icon"], Gtk.IconSize.BUTTON)
         box.pack_start(img, False, False, 4)
 
-        widget = Gtk.Label()
+        widget = Gtk.Label.new()
         widget.set_use_markup(True)
         widget.set_markup('<span size="12000">%s</span>' % category["label"])
         widget.set_alignment(.5, .5)
@@ -571,7 +571,6 @@ class MainWindow:
 
 if __name__ == "__main__":
     import signal
-    GObject.threads_init()
     signal.signal(signal.SIGINT, MainWindow().quit)
     Gtk.main()
 

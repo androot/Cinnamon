@@ -68,7 +68,7 @@ class ExtensionSidePage (SidePage):
         self.search_entry.set_placeholder_text(_("Search %s") % (self.pl_noun))
         self.search_entry.connect('changed', self.on_entry_refilter)
 
-        self.notebook.append_page(extensions_vbox, Gtk.Label(_("Installed")))
+        self.notebook.append_page(extensions_vbox, Gtk.Label.new(_("Installed")))
         
         self.content_box.add(self.notebook)
         self.treeview = Gtk.TreeView()
@@ -179,7 +179,7 @@ class ExtensionSidePage (SidePage):
         self.comboshow.add_attribute(renderer_text, "text", 1)
         self.comboshow.show()
         
-        showLabel = Gtk.Label()
+        showLabel = Gtk.Label.new()
         showLabel.set_text(_("Show"))
         showLabel.show()
         hbox.pack_start(showLabel, False, False, 4)
@@ -230,7 +230,7 @@ class ExtensionSidePage (SidePage):
         getmore_vbox = Gtk.VBox()
         getmore_vbox.set_border_width(0)
 
-        getmore_label = Gtk.Label(_("Get more online"))
+        getmore_label = Gtk.Label.new(_("Get more online"))
         self.notebook.append_page(getmore_vbox, getmore_label)
         self.notebook.connect("switch-page", self.on_page_changed)
 
@@ -250,7 +250,7 @@ class ExtensionSidePage (SidePage):
 
         hbox = Gtk.HBox()
         hbox.set_border_width(3);
-        sortLabel = Gtk.Label()
+        sortLabel = Gtk.Label.new()
         sortLabel.set_text(_("Sort by"))
         sortLabel.show()
         hbox.pack_start(sortLabel, False, False, 4)
