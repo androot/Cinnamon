@@ -399,7 +399,7 @@ class BackgroundSlideshowPane(Gtk.Table):
         self.folder_selector.connect("file-set", self._on_folder_selected)
         self.folder_selector.set_filename(self._cinnamon_background_schema["slideshow-folder"])
         self.attach(self.folder_selector, 1, 2, 0, 1, xoptions = Gtk.AttachOptions.FILL | Gtk.AttachOptions.EXPAND, yoptions = 0)
-        self.recursive_cb = Gtk.CheckButton(_("Recursive listing"))
+        self.recursive_cb = Gtk.CheckButton.new_with_label(_("Recursive listing"))
         self.recursive_cb.set_active(self._cinnamon_background_schema.get_boolean("slideshow-recursive"))
         self.recursive_cb.connect("toggled", self._on_recursive_toggled)
         self.attach(self.recursive_cb, 2, 3, 0, 1, xoptions = Gtk.AttachOptions.FILL, yoptions = 0)
@@ -507,7 +507,7 @@ class BackgroundSidePage (SidePage):
         #self.background_mode.unparent()
         #topbox.pack_start(self.background_mode, False, False, 0)
                         
-        self.remove_wallpaper_button = Gtk.Button(_("Remove"))
+        self.remove_wallpaper_button = Gtk.Button.new_with_label(_("Remove"))
         imageremove = Gtk.Image()
         imageremove.set_from_icon_name('remove', Gtk.IconSize.BUTTON)
         if imageremove.get_pixbuf() == None:
@@ -519,7 +519,7 @@ class BackgroundSidePage (SidePage):
         self.remove_wallpaper_button.connect("clicked", lambda w: self._remove_selected_wallpaper())
         self.remove_wallpaper_button.set_sensitive(False)
         topbox.pack_end(self.remove_wallpaper_button, False, False, 0)
-        self.add_wallpaper_button = Gtk.Button(_("Add"))
+        self.add_wallpaper_button = Gtk.Button.new_with_label(_("Add"))
         imageadd = Gtk.Image()
         imageadd.set_from_icon_name('add', Gtk.IconSize.BUTTON)
         if imageadd.get_pixbuf() == None:
