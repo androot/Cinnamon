@@ -186,7 +186,6 @@ class MainWindow(object):
 
     def icon_data_func(self, column, cell, model, iter, data=None):
         wrapper = model.get_value(iter, data)
-        # print cell.get_property("surface"), wrapper
         if wrapper:
             cell.set_property("surface", wrapper.surface)
 
