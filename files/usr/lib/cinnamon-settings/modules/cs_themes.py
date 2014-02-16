@@ -37,7 +37,7 @@ class ThemesViewSidePage (ExtensionSidePage):
         return string
         
     def _make_group(self, group_label, root, key, schema):
-        self.size_groups = getattr(self, "size_groups", [SizeGroup(SizeGroupMode.HORIZONTAL) for x in range(2)])
+        self.size_groups = getattr(self, "size_groups", [SizeGroup.new(SizeGroupMode.HORIZONTAL) for x in range(2)])
         
         box = Gtk.HBox()
         label = Gtk.Label.new()
